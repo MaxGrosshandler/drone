@@ -1,0 +1,2 @@
+# Drone
+Drone is desiged to keep your server as secure as you want it to be. The bot is meant to be self-hosted, in order to both provide end users with a way to customize the bot to their liking and a sense of safety knowing that you have full control.
