@@ -3,20 +3,15 @@ const Eris = require('eris')
 const config = require("./config.json")
 const bot = new Eris.Client(config.token)
 const fs = require("fs")
+const auth0 = require("auth0-js")
 let commands = [];
 let helpCommands = [];
 function readCommands() {
     fs.readdir("./commands", (err, files) => {
         if (err) console.error(err);
-        console.log(
-            `Loading a total of ${files.length} commands into memory.`,
-            false
-        );
         files.forEach(file => {
             try {
                 const command = require(`./commands/${file}`);
-
-                console.log(`Attempting to load the command "${command.name}".`, false);
 
 
                 let newCommand = [
@@ -40,23 +35,35 @@ function readCommands() {
 
             }
             catch (err) {
-                console.log(
-                    "An error has occured trying to load a command. Here is the error."
-                );
                 console.log(err.stack);
             }
         });
-        console.log("Command Loading complete!");
-        console.log("\n");
     });
 }
 
 bot.on("ready", () => { // When the bot is ready
     console.log("Drone is online"); // Log "Ready!"
 });
+bot.on("guildMemberAdd", async (guild, member) => {
+ bot.createMessage("507189913817579530", "Hi <@" + member.id + ">, welcome to the server!"
+ +" In order to stay on this server, you will need to set a passcode.")
+})
+var webAuth = new auth0.WebAuth({
+    domain: config.AUTH0_DOMAIN,
+    clientID: config.AUTH0_CLIENT_ID,
+    redirectUri: config.AUTH0_CALLBACK_URL,
+    responseType: 'token id_token',
+    scope: 'openid',
+    leeway: 60
+  });
+
 
 bot.on("messageCreate", async msg => {
     if (msg.author.bot) return;
+    if(msg.content.toLowerCase() === "oauthtest"){
+        webAuth.authorize();
+        
+    }
     if (msg.content.toLowerCase().startsWith("drone ")) {
         let stuff = msg.content.split(" ")
         let c = stuff[1];
