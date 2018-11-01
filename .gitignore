@@ -2,3 +2,4 @@
 node_modules/
 config.json
 auth0-variables.js
+index.html

